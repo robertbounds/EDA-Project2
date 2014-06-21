@@ -22,6 +22,13 @@ plot6 <- function() {
                              ordered = TRUE)
         LAMVs$fips <- "Los Angeles County"
         
+        ########################################
+        ### Normalize data to emphasize change
+        ###
+        ### LAMVs$Emissions <- LAMVs$Emissions/sum(LAMVs$Emissions)
+        ### baltimoreMVs$Emissions <- baltimoreMVs$Emissions/sum(baltimoreMVs$Emissions)
+        ########################################
+        
         mergedData <- rbind(baltimoreMVs, LAMVs)
         mergedData <- data.table(mergedData)
         aggregate <- mergedData[, list(Location = fips, Emissions = sum(Emissions)), by = list(year, fips)]
@@ -32,6 +39,7 @@ plot6 <- function() {
                        mapping = aes(fill = Location), 
                        position = "dodge", 
                        stat = "identity")
+        
         g <- g + ylab("PM2.5 Emissions, in tons")
         g <- g + xlab("Year")
         g <- g + ggtitle("Total PM2.5 Emissions from Motor Vehicles:\nBaltimore City vs Los Angeles County")

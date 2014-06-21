@@ -15,7 +15,10 @@ plot3 <- function() {
 
         # construct barplot of data, subsetted by type
         g <- ggplot(data = baltimore, mapping = aes(x = year, y = Emissions))
-        g <- g + layer(geom = "bar", mapping = aes(fill = type), stat = "identity")
+        g <- g + layer(geom = "bar", 
+                       mapping = aes(fill = type), 
+                       position = "dodge", 
+                       stat = "identity")
         g <- g + ylab("PM2.5 Emissions, in tons")
         g <- g + xlab("Year")
         g <- g + ggtitle("PM2.5 Emissions, Baltimore City")
