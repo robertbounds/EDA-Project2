@@ -21,7 +21,7 @@ plot3 <- function() {
                        stat = "identity")
         g <- g + ylab("PM2.5 Emissions, in tons")
         g <- g + xlab("Year")
-        g <- g + ggtitle("PM2.5 Emissions, Baltimore City")
+        g <- g + ggtitle("PM2.5 Emissions by type, Baltimore City")
 
         ggsave("plot3.png")        
 
