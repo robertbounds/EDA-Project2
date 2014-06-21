@@ -23,17 +23,6 @@ plot3 <- function() {
         g <- g + xlab("Year")
         g <- g + ggtitle("PM2.5 Emissions, Baltimore City")
 
-        ggsave("plot3.png")
-        ##png(file = "plot3.png", width = 480, height = 480)
-        
-        ##print(g)
-        
-        #dev.off
-        
-        # further modify plot: main, x- and y-axis labels.
-
-        
-
-        
+        ggsave("plot3.png")        
 
 }

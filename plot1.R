@@ -19,7 +19,7 @@ plot1 <- function() {
         png(file = "plot1.png", width = 480, height = 480)
         
         barplot(emissionTotals,
-                main = "Total PM2.5 Emissions, Nationwide",
+                main = "Total U.S. PM2.5 Emissions",
                 ylab = "PM2.5 emitted, in tons",
                 xlab = "Year",
                 col = "seagreen3"
