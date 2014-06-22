@@ -43,5 +43,5 @@ plot4 <- function() {
         g <- g + xlab("Year")
         g <- g + ggtitle("U.S. Coal Combustion-related, PM2.5 Emissions")
         
-        ggsave("plot4.png")
+        ggsave("plot4.png", dpi = 80, height = 5, width = 7)        
 }

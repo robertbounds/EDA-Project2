@@ -30,7 +30,7 @@ plot5 <- function() {
         ### perform light data scrubbing
         baltimoreMVs <- baltimoreMVs[which(!is.na(baltimoreMVs$year)), ]
         
-        
+        ### Set year as an ordered factor to assist x-axis grouping later
         baltimoreMVs$year <- factor(baltimoreMVs$year, 
                                     levels = c("1999", "2002", "2005", "2008"),
                                     ordered = TRUE)

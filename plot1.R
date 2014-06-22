@@ -20,7 +20,7 @@ plot1 <- function() {
         ## add years as names to emissions totals
         names(emissionTotals) <- years
         
-        png(file = "plot1.png", width = 720, height = 720)
+        png(file = "plot1.png", width = 480, height = 480)
         
         ## plot emissionsTotals using barplot from base plottting system
         barplot(emissionTotals,

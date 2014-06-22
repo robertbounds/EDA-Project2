@@ -21,7 +21,7 @@ plot2 <- function() {
         
         names(baltimoreTotals) <- years
         
-        png(file = "plot2.png", width = 720, height = 720)
+        png(file = "plot2.png", width = 480, height = 480)
         
         barplot(baltimoreTotals,
                 main = "Total PM2.5 Emissions, Baltimore City",
