@@ -34,14 +34,17 @@ plot5 <- function() {
         baltimoreMVs$year <- factor(baltimoreMVs$year, 
                                     levels = c("1999", "2002", "2005", "2008"),
                                     ordered = TRUE)
+        baltimoreMVs$EI.Sector <- gsub("Mobile - On-Road ", "", baltimoreMVs$EI.Sector)
         
         g <- ggplot(data = baltimoreMVs,
                     mapping = aes(x = year, y = Emissions))
-        g <- g + layer(geom = "bar", mapping = aes(fill = type), stat = "identity")
+        g <- g + layer(geom = "bar", 
+                       mapping = aes(fill = EI.Sector),
+                       position = "dodge",
+                       stat = "identity")
         g <- g + ylab("Emissions, in tons")
         g <- g + xlab("Year")
-        g <- g + ggtitle("PM2.5 Emissions from Motor Vehicles, Baltimore City")
-        g <- g + guides(fill = FALSE)
+        g <- g + ggtitle("PM2.5 Emissions from Motor Vehicles\nin Baltimore City")
         
-        ggsave("plot5.png", height = 6, width = 6, dpi = 80)
+        ggsave("plot5.png", height = 6, width = 8, dpi = 80)
 }

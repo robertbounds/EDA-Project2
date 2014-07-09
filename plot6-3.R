@@ -1,7 +1,9 @@
 library(data.table)
 library(ggplot2)
+library(scales)
+library(quantmod)
 
-plot6 <- function() {
+plot6.3 <- function() {
         
         NEI <- readRDS("summarySCC_PM25.rds")
         SCC <- readRDS("Source_Classification_Code.rds")
@@ -33,16 +35,28 @@ plot6 <- function() {
         mergedData <- data.table(mergedData)
         aggregate <- mergedData[, list(Location = fips, Emissions = sum(Emissions)), by = list(year, fips)]
         
+        LAemissions <- aggregate[which(aggregate$Location == "Los Angeles County"), ]$Emissions
+        BCemissions <- aggregate[which(aggregate$Location == "Baltimore City"), ]$Emissions
+        
+        LA_1 <- LAemissions[1]
+        BC_1 <- BCemissions[1]
+        LAemissions <- 1 - LAemissions/sum(LAemissions)
+        BCemissions <- 1 - BCemissions/sum(BCemissions)
+        aggregate[which(Location == "Baltimore City")]$Emissions <- BCemissions
+        aggregate[which(Location == "Los Angeles County")]$Emissions <- LAemissions
+
+        
         g <- ggplot(data = aggregate,
                     mapping = aes(x = year, y = Emissions))
         g <- g + layer(geom = "bar", 
                        mapping = aes(fill = Location), 
                        position = "dodge", 
                        stat = "identity")
-        g <- g + ylab("PM2.5 Emissions, in tons")
+        #g <- g + scale_y_continuous(labels = percent)
+        g <- g + ylab("% Change of PM2.5 Emissions")
         g <- g + xlab("Year")
-        g <- g + ggtitle("Total PM2.5 Emissions from Motor Vehicles:\nBaltimore City vs Los Angeles County")
+        g <- g + ggtitle("Relative Changes of PM2.5 Emissions from Motor Vehicles:\nBaltimore City vs Los Angeles County")
                 
-        ggsave("plot6.png", height = 6, width = 6, dpi = 80)
+        ggsave("plot6-3.png", height = 8, width = 8, dpi = 80)
 
 }

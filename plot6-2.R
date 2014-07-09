@@ -1,7 +1,8 @@
 library(data.table)
 library(ggplot2)
+library(scales)
 
-plot6 <- function() {
+plot6.2 <- function() {
         
         NEI <- readRDS("summarySCC_PM25.rds")
         SCC <- readRDS("Source_Classification_Code.rds")
@@ -29,6 +30,9 @@ plot6 <- function() {
         ### rename fips values to be more meaningful
         LAMVs$fips <- "Los Angeles County"
         
+        baltimoreMVs$Emissions <- baltimoreMVs$Emissions/sum(baltimoreMVs$Emissions)
+        LAMVs$Emissions <- LAMVs$Emissions/sum(LAMVs$Emissions)
+        
         mergedData <- rbind(baltimoreMVs, LAMVs)
         mergedData <- data.table(mergedData)
         aggregate <- mergedData[, list(Location = fips, Emissions = sum(Emissions)), by = list(year, fips)]
@@ -39,10 +43,11 @@ plot6 <- function() {
                        mapping = aes(fill = Location), 
                        position = "dodge", 
                        stat = "identity")
-        g <- g + ylab("PM2.5 Emissions, in tons")
+        g <- g + scale_y_continuous(labels = percent)
+        g <- g + ylab("% of City's Total PM2.5 Emissions")
         g <- g + xlab("Year")
-        g <- g + ggtitle("Total PM2.5 Emissions from Motor Vehicles:\nBaltimore City vs Los Angeles County")
+        g <- g + ggtitle("Relative PM2.5 Emissions from Motor Vehicles:\nBaltimore City vs Los Angeles County")
                 
-        ggsave("plot6.png", height = 6, width = 6, dpi = 80)
+        ggsave("plot6-2.png", height = 6, width = 6, dpi = 80)
 
 }
